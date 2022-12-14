@@ -1,0 +1,4 @@
+#git filter-repo --paths-from-file git-repo-filter-module-project.txt --force
+
+modules/project/
+modules/project/==>
