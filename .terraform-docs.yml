@@ -40,26 +40,44 @@ content: |-
   {{- end -}}
   {{ indent 0 "#" }} Usage
   
+  # Project Module
+
+  This module implements the creation and management of one GCP project including IAM, organization policies, Shared VPC host or service attachment, service API activation, and tag attachment.
+  It also offers a convenient way to refer to managed service identities (aka robot service accounts) for APIs.
+
+  ## Examples
+
+  ### Basic
+
   This Module creates a GCP Project
   ```hcl
   {{ include "examples/basic/main.tf" }}
   {{ include "examples/basic/variables.tf" }}
   ```
 
-  This Module creates a GCP Project with automating Cloud Encrypter/Decrypter Role with KMS
-  It is possible to include yaml config files.
+  ### Cloud KMS encryption keys
+
+  The module offers a simple, centralized way to assign `roles/cloudkms.cryptoKeyEncrypterDecrypter` to service identities.
   ```hcl
   {{ include "examples/crypto/main.tf" }}
   {{ include "examples/crypto/variables.tf" }}
   ```
+  ### IAM
 
-  This Module creates a GCP Project with a IAM
+  IAM is managed via several variables that implement different levels of control:
+
+  - `group_iam` and `iam` configure authoritative bindings that manage individual roles exclusively, mapping to the [`google_project_iam_binding`](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/google_project_iam#google_project_iam_binding) resource
+  - `iam_additive` and `iam_additive_members` configure additive bindings that only manage individual role/member pairs, mapping to the [`google_project_iam_member`](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/google_project_iam#google_project_iam_member) resource
+
+  Be mindful about service identity roles when using authoritative IAM, as you might inadvertently remove a role from a [service identity](https://cloud.google.com/iam/docs/service-accounts#google-managed) or default service account. For example, using `roles/editor` with `iam` or `group_iam` will remove the default permissions for the Cloud Services identity. A simple workaround for these scenarios is described below.
   ```hcl
   {{ include "examples/iam/main.tf" }}
   {{ include "examples/iam/variables.tf" }}
   ```
 
-  This Module creates a GCP Project with org policies
+  ### Organization policies
+
+  To manage organization policies, the `orgpolicy.googleapis.com` service should be enabled in the quota project.
   ```hcl
   {{ include "examples/organization_policies/main.tf" }}
   {{ include "examples/organization_policies/variables.tf" }}
@@ -69,11 +87,15 @@ content: |-
   {{ include "examples/organization_policies/configs/boolean.yaml" }}
   ``` 
 
-  This Module creates a GCP Project as a shared vpc host
+  ### Shared VPC service
+
+  The module allows managing Shared VPC status for both hosts and service projects, and includes a simple way of assigning Shared VPC roles to service identities.
   ```hcl
   {{ include "examples/shared_vpc/main.tf" }}
   {{ include "examples/shared_vpc/variables.tf" }}
   ```
+
+  ### Logging Sinks
 
   This Module creates a GCP Project with sink for logging
   ```hcl
@@ -81,7 +103,9 @@ content: |-
   {{ include "examples/sinks/variables.tf" }}
   ```
 
-  This Module creates a GCP Project with tags
+  ### Tags
+
+  Refer to the [Creating and managing tags](https://cloud.google.com/resource-manager/docs/tags/tags-creating-and-managing) documentation for details on usage.
   ```hcl
   {{ include "examples/tags/main.tf" }}
   {{ include "examples/tags/variables.tf" }}
