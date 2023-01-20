@@ -1,0 +1,15 @@
+compute.disableGuestAttributesAccess:
+  enforce: true
+constraints/compute.skipDefaultNetworkCreation:
+  enforce: true
+iam.disableServiceAccountKeyCreation:
+  enforce: true
+iam.disableServiceAccountKeyUpload:
+  enforce: false
+  rules:
+  - condition:
+      description: test condition
+      expression: resource.matchTagId("tagKeys/1234", "tagValues/1234")
+      location: somewhere
+      title: condition
+    enforce: true
