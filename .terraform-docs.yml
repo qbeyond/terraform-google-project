@@ -80,6 +80,8 @@ content: |-
   To manage organization policies, the `orgpolicy.googleapis.com` service should be enabled in the quota project.
   To use yaml config, it is required to create a yaml file with your configuration and add the org_policies_data_path variable.
 
+  `configs/boolean.yaml`
+  
   ```yaml
   {{ include "examples/organization_policies/configs/boolean.yaml" }}
   ``` 
