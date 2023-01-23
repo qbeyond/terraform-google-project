@@ -1,6 +1,4 @@
 <!-- BEGIN_TF_DOCS -->
-## Usage
-
 # Project Module
 
 This module implements the creation and management of one GCP project including IAM, organization policies, Shared VPC host or service attachment, service API activation, and tag attachment.
