@@ -174,6 +174,26 @@ variable "billing_account_id" {
 ### Organization policies
 
 To manage organization policies, the `orgpolicy.googleapis.com` service should be enabled in the quota project.
+To use yaml config, it is required to create a yaml file with your configuration and add the org_policies_data_path variable.
+
+```yaml
+compute.disableGuestAttributesAccess:
+  enforce: true
+constraints/compute.skipDefaultNetworkCreation:
+  enforce: true
+iam.disableServiceAccountKeyCreation:
+  enforce: true
+iam.disableServiceAccountKeyUpload:
+  enforce: false
+  rules:
+  - condition:
+      description: test condition
+      expression: resource.matchTagId("tagKeys/1234", "tagValues/1234")
+      location: somewhere
+      title: condition
+    enforce: true
+```
+
 ```hcl
 provider "google" {
   impersonate_service_account = var.impersonate_service_account
@@ -218,23 +238,7 @@ variable "impersonate_service_account" {
 }
 ```
 
-```yaml
-compute.disableGuestAttributesAccess:
-  enforce: true
-constraints/compute.skipDefaultNetworkCreation:
-  enforce: true
-iam.disableServiceAccountKeyCreation:
-  enforce: true
-iam.disableServiceAccountKeyUpload:
-  enforce: false
-  rules:
-  - condition:
-      description: test condition
-      expression: resource.matchTagId("tagKeys/1234", "tagValues/1234")
-      location: somewhere
-      title: condition
-    enforce: true
-```
+
 
 ### Shared VPC service
 
