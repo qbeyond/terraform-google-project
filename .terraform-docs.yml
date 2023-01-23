@@ -38,7 +38,6 @@ content: |-
       {{- template "setDict" dict "Dict" $resourceTypes "Key" (printf "%s_%s" .ProviderName .Type) "Resource" . -}}
     {{- end -}}
   {{- end -}}
-  {{ indent 0 "#" }} Usage
   
   # Project Module
 
