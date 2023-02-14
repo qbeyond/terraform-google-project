@@ -1,6 +1,4 @@
 <!-- BEGIN_TF_DOCS -->
-## Usage
-
 # Project Module
 
 This module implements the creation and management of one GCP project including IAM, organization policies, Shared VPC host or service attachment, service API activation, and tag attachment.
@@ -175,6 +173,8 @@ variable "billing_account_id" {
 
 To manage organization policies, the `orgpolicy.googleapis.com` service should be enabled in the quota project.
 To use yaml config, it is required to create a yaml file with your configuration and add the org_policies_data_path variable.
+
+`configs/boolean.yaml`
 
 ```yaml
 compute.disableGuestAttributesAccess:
