@@ -543,4 +543,8 @@ No modules.
 |------|------|
 | [google_access_context_manager_service_perimeter_resource.bridge](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/access_context_manager_service_perimeter_resource) | resource |
 | [google_access_context_manager_service_perimeter_resource.standard](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/access_context_manager_service_perimeter_resource) | resource |
+## Contribute
+
+This module is derived from [google cloud foundation fabric module `project` v19](https://github.com/GoogleCloudPlatform/cloud-foundation-fabric/tree/v19.0.0/modules/project).
+Refer to [guide in `terraform-google-landing-zone` repository](https://github.com/qbeyond/terraform-google-landing-zone/tree/main#updating-a-repository) for information on integrating changes.
 <!-- END_TF_DOCS -->
